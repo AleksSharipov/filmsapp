@@ -3,8 +3,9 @@ import axios from 'axios';
 //чтобы actions могли быть асинхронными - используем redux-thunk
 
 // получаем наши данные с сервака. fetchFilms - асинхронный экшен, который возвращает функцию
-export const fetchFilms = () => (dispatch) => {
-  axios.get('http://localhost:3001/films/')
+export const fetchFilms = (category) => (dispatch) => {
+  console.log(category)
+  axios.get(`http://localhost:3001/films?${category === null ? `` : `genres=${category}`}`)
     .then(({ data }) => {
       dispatch(setFilms(data));
     })

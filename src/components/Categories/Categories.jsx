@@ -1,26 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './categories.scss';
 
 export default function Categories({ items, handleClick }) {
+
+  const [activeItem, setActiveItem] = useState(null)
 
   return (
     <div className="categories">
       <ul className="categories__items">
         <li
           onClick={() => {
-            return handleClick(null)
+            setActiveItem(null);
+            handleClick(null);
           }}
-          className="categories__item">Все</li>
+          className={`categories__item ${activeItem === null ? 'active' : ''}`}>Все</li>
         {
-          items.map(item => {
+          items.map((item, index) => {
             return (
               <li
                 onClick={() => {
-                  return handleClick(item.num)
+                  setActiveItem(item.num);
+                  handleClick(item.type);
                 }}
                 key={item.type}
-                className="categories__item"
+                className={`categories__item ${activeItem === index ? 'active' : ''}`}
               >{item.name}</li>)
           })
         }

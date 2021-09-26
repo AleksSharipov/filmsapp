@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Categories from '../Categories/Categories';
 import FilmsBlock from '../FilmsBlock/FilmsBlock';
 import { useSelector } from 'react-redux';
 import { setCategory } from '../../redux/actions/filters';
 import { useDispatch } from 'react-redux';
+import { fetchFilms } from '../../redux/actions/films';
 
 const categoryName = [
   { name: 'Боевики', type: 'action', num: 0 },
@@ -20,6 +21,10 @@ export default function Home() {
   const { category } = useSelector(({ filters }) => {
     return filters;
   });
+
+  useEffect(() => {
+    dispatch(fetchFilms(category))
+  }, [category]);
 
   console.log(category)
 
